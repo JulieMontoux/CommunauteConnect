@@ -29,6 +29,24 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+  <style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .account-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+    .edit-mode input {
+        border: 1px solid #ccc;
+    }
+</style>
+
 </head>
 
 <body>
@@ -67,108 +85,36 @@
       </nav>
     </header>
     <!-- end header section -->
-    <!-- slider section -->
-    <section class="slider_section long_section">
-      <div id="customCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="detail-box">
-                    <h1>
-                      Communauté<br>
-                      Connect
-                    </h1>
-                    <p>
-                      Ensemble, plus forts! Des services locaux à portée de main.
-                    </p>
-                    <div class="btn-box">
-                      <a href="./connexion.php" class="btn1">
-                        Connexion
-                      </a>
-                      <a href="#about" class="btn2">
-                        En savoir plus
-                      </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center mt-4">Vous 😁</h1>
+                <div class="account-container">
+                    <h2>Informations du Compte</h2>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="firstName" value="John" readonly>
                     </div>
-                  </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="lastName" value="Doe" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adresse Email</label>
+                        <input type="email" class="form-control" id="email" value="johndoe@example.com" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Numéro de Téléphone</label>
+                        <input type="tel" class="form-control" id="phoneNumber" value="123-456-7890" readonly>
+                    </div>
+                    <button id="editButton" class="btn btn-primary">Modifier le Compte</button>
+                    <button id="saveButton" class="btn btn-success d-none">Enregistrer</button>
                 </div>
-                <div class="col-md-7">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-    <!-- end slider section -->
-  </div>
-
-  <!-- catégories section -->
-
-  <section class="furniture_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Ils ont besoin de Vous!
-        </h2>
-        <p>
-          Soutenez leur cause, aider des personnes dans le besoin!
-        </p>
-      </div>
-      <div class="row">
-        <div class="col-md-6 col-lg-4">
-          <!-- php boucle bdd -->
-          <div class="box">
-            <div class="img-box">
-             <!-- php recup la photo -->
-            </div>
-            <div class="detail-box">
-              <!-- php recup le nom et le lien vers la page des besoins -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
-
-  <!-- end catégories section -->
-
-
-  <!-- about section -->
-
-  <section class="about_section layout_padding long_section" id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="images/about-img.png" alt="">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                A propos de nous
-              </h2>
-            </div>
-            <p>
-              Nous sommes une association qui soutient l'entraide, les rencontres et les grands coeurs !<br>
-              Nous espérons que vous pouvez prendre de votre temps pour les personnes qui en ont besoin.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end about section -->
-
-
+    
   <!-- info section -->
   <section class="info_section long_section" style="margin-top: 15px;">
 
@@ -202,8 +148,7 @@
     </div>
   </footer>
   <!-- footer section -->
-
-
+      
   <!-- jQery -->
   <script src="js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->
@@ -214,6 +159,35 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
   <!-- End Google Map -->
 
-</body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const emailInput = document.getElementById('email');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
 
+        editButton.addEventListener('click', function () {
+            // Activer le mode édition
+            firstNameInput.removeAttribute('readonly');
+            lastNameInput.removeAttribute('readonly');
+            emailInput.removeAttribute('readonly');
+            phoneNumberInput.removeAttribute('readonly');
+            editButton.classList.add('d-none');
+            saveButton.classList.remove('d-none');
+        });
+
+        saveButton.addEventListener('click', function () {
+            // Sauvegarder les modifications et désactiver le mode édition
+            firstNameInput.setAttribute('readonly', true);
+            lastNameInput.setAttribute('readonly', true);
+            emailInput.setAttribute('readonly', true);
+            phoneNumberInput.setAttribute('readonly', true);
+            editButton.classList.remove('d-none');
+            saveButton.classList.add('d-none');
+        });
+    });
+</script>
+</body>
 </html>
